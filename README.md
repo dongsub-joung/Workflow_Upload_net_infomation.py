@@ -21,6 +21,14 @@
 4. If you turn it off, access blow URL  
 > youtube.com/watch?v=dQw4w9WgXcQ&t=113s  
 
+5. Some Recommended Options  
+
+> pyminifier - Minify, obfuscate, and compress Python code  
+> Personally, i more love to seperate each files had the token from main file.
+
+https://liftoff.github.io/pyminifier/  
+
+
 ## 1.0.0
 
 1. when start it, first of all post blow.  
