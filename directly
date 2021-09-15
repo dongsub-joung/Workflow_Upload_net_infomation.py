@@ -1,0 +1,53 @@
+import os
+from datetime import date
+import js2py
+
+# Get Computer EVN or device infomation
+# IF you more decribe your system info, check the example blow a link.
+# https://stackoverflow.com/questions/3103178/how-to-get-the-system-info-with-python
+def getSystemInfomation():
+  return os.uname()
+
+def fixTextElement(msg):
+    tw_text_element= f'document.getElementsByClassName("public-DraftStyleDefault-block")[0].innerText= {msg}'
+    js2py.eval_js(tw_text_element)
+
+def getURL():
+  get_url_js= 'document.URL'
+  return js2py.eval_js(get_url_js)
+
+def extracer(url):
+    get_title_js= 'document.getElementsByTagName("h1")[0].textContent'
+    return str.strip(js2py.eval_js(get_title_js))
+
+# Get URL from NEW documentation.
+def uploadURL(URL):
+  title= extracer(URL)
+
+  if(URL in "google.com/search" or URL in "duckduckgo.com" or URL in "yandex.com/search"):
+    return 0
+  elif (URL in "youtube.com/watch?v=dQw4w9WgXcQ&t=113s"):
+    return -1
+  else:
+    # Directly DOM
+    fixTextElement(f"{title}  ::\n{URL}")
+    postIt()
+
+def postIt():
+    
+    js2py.eval_js()
+
+# Init
+# Create a tweet, onece POST IT.
+data_obj = getSystemInfomation()
+d1 =  date.today().strftime("%d/%m/%Y")
+fixTextElement(f"#おはようございます {d1} via @youtube \n{data_obj} \nhttps://youtu.be/ac58ARaacAM")
+
+while(1):
+  if(uploadURL(getURL()) == -1):
+    break
+
+
+# Reference
+#   https://realpython.com/twitter-bot-python-tweepy/
+#   https://twitterdev.github.io/search-tweets-python/
